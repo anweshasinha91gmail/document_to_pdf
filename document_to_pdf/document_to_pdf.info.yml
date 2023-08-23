@@ -1,0 +1,5 @@
+name: document_to_pdf
+type: module
+description: Module to convert documents to pdf
+package: Custom
+core_version_requirement: ^9 || ^10

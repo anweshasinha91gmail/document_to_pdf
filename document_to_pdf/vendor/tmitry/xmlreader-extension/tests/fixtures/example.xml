@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <products>
+    <product>
+      <title>Apple iPhone 11 64GB</title>
+      <price>699.00</price>
+    </product>
+    <product>
+      <title>Apple iPhone 11 128GB</title>
+      <price>749.00</price>
+    </product>
+  </products>
+</root>

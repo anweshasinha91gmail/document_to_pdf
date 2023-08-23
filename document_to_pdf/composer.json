@@ -1,0 +1,22 @@
+{
+    "name": "anweshasinhakundu/document_to_pdf",
+    "description": "Composer file for the module",
+    "type": "drupal-module",
+    "autoload": {
+        "psr-4": {
+            "Anweshasinhakundu\\DocumentToPdf\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Anwesha",
+            "email": "anwesha.s@valuebound.com"
+        }
+    ],
+    "require": {
+        "phpoffice/phpword": "^1.1",
+        "setasign/fpdi": "^2.4",
+        "mpdf/mpdf": "^8.1",
+        "tmitry/xmlreader-extension": "^1.1"
+    }
+}

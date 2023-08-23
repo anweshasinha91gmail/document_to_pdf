@@ -1,0 +1,3 @@
+services:
+  document_to_pdf.conversionservices:
+    class: Drupal\document_to_pdf\ConversionServices
