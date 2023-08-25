@@ -18,7 +18,8 @@ class ConversionServices {
  */
   public function fetch_docx_data($file_path, $file_name_without_ext) {
     $host = \Drupal::request()->getSchemeAndHttpHost();
-    $docxFilePath = $file_path;
+    $docxFilePath = urldecode($file_path);
+    $file_name_without_ext = urldecode($file_name_without_ext);
     // Specify the path for the output XML file.
     $xmlFilePath = 'sites/default/files/' . $file_name_without_ext . '.xml';
     // Create a new ZipArchive object.
