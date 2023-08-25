@@ -1,0 +1,6 @@
+document_to_pdf.admin_form:
+  title: 'Conversion File field settings'
+  parent: system.admin_config_content
+  description: 'Choose the entities where the document to pdf conversion field will be attached to'
+  route_name: document_to_pdf.admin_form
+  weight: -20

@@ -5,3 +5,11 @@ document_to_pdf.conversion:
     _form: 'Drupal\document_to_pdf\Form\ConversionForm'
   requirements:
     _permission: 'access content'
+
+document_to_pdf.admin_form:
+  path: '/admin/config/document_to_pdf'
+  defaults:
+    _form: '\Drupal\document_to_pdf\Form\ChooseEntityForm'
+    _title: 'Select the entities for attaching document_to_pdf field.'
+  requirements:
+    _permission: 'administer site configuration'

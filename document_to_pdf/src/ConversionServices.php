@@ -6,6 +6,7 @@ use PhpOffice\PhpWord\Shared\XMLWriter;
 use XMLReader;
 use Drupal\Core\File\FileSystemInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Mpdf\Mpdf;
 
 /**
  * GRL Common function services Implementations.
@@ -427,6 +428,25 @@ class ConversionServices {
     }
     else {
       return ($color);
+    }
+  }
+
+  /**
+   * Convert to PDF
+   */
+  public function convert_to_pdf($data) {
+    // Create new PDF document.
+    $mpdf = new Mpdf();
+    $mpdf->WriteHTML($data);
+    // Output the PDF as a download
+    $mpdf->Output(time().'_converted.pdf', 'I');
+    $files = glob('sites/default/files/doc_imgs/*');
+    // Iterate image files and delete it.
+    foreach ($files as $file1) {
+      if (is_file($file1)) {
+        // Delete local saved image files.
+        unlink($file1);
+      }
     }
   }
 }

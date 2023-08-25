@@ -1,7 +1,9 @@
 {
     "name": "anweshasinhakundu/document_to_pdf",
-    "description": "Composer file for the module",
+    "description": "Module for converting document_to_pdf",
     "type": "drupal-module",
+    "keywords": ["Drupal"],
+    "license": "GPL-2.0-or-later",
     "autoload": {
         "psr-4": {
             "Anweshasinhakundu\\DocumentToPdf\\": "src/"

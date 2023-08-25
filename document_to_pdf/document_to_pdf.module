@@ -1,6 +1,54 @@
 <?php
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * @file
  * Primary module hooks for document_to_pdf module.
  */
+/**
+ * Implements hook_form_FORM_ID_alter() for node_form().
+ */
+function document_to_pdf_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if($form_id == 'document_to_pdf_admin_form') {
+    if(isset($form['help'])) {
+      $form['actions']['submit']['#access'] = FALSE;
+    }
+  }
+  // Check if the content type has the 'field' field.
+  if (isset($form['field_document_to_pdf'])) {
+    // Add a new submit handler.
+    $form['actions']['submit']['#submit'][] = 'perform_conversion_submit_handler';
+  }
+}
+/**
+ * Custom submit handler to add additional functionality.
+ */
+function perform_conversion_submit_handler($form, FormStateInterface $form_state) {
+  // Your custom submit handler logic goes here.
+  $values = $form_state->getValues();
+  $file_upload_id = $values['field_document_to_pdf'][0];
+  if(count($file_upload_id['fids']) > 0) {
+    $file = \Drupal::entityTypeManager()->getStorage('file')->load($file_upload_id['fids'][0]);
+    if($file) {
+      $file_extension = pathinfo($file->getFilename(), PATHINFO_EXTENSION);
+      $uri = $file->getFileUri();
+      $fname = $file->getFilename();
+      $file_name_without_ext = basename($fname, $file_extension);
+      $file_name_without_ext = str_replace('.','',$file_name_without_ext);
+      $file_path = $file->createFileUrl(TRUE);
+      $file_path = trim($file_path, '/');
+      switch($file_extension) {
+        case 'docx':
+          //Extract the file data
+          $data = \Drupal::service('document_to_pdf.conversionservices')->fetch_docx_data($file_path, $file_name_without_ext);
+          //Convert to pdf
+          \Drupal::service('document_to_pdf.conversionservices')->convert_to_pdf($data);
+        break;
+      }
+    }
+  }
+
+}
+
+
+
