@@ -97,7 +97,7 @@ class ChooseEntityForm extends ConfigFormBase {
       'bundle' => $content_type,
       'type' => 'file',
       'settings' => [
-       'file_extensions' => 'docx', // Specify the allowed file extension.
+       'file_extensions' => 'docx txt', // Specify the allowed file extension.
       ],
     ];
     // Load the field storage for the file field.
@@ -110,7 +110,7 @@ class ChooseEntityForm extends ConfigFormBase {
         'bundle' => $content_type,
         'type' => 'file',
         'settings' => [
-          'file_extensions' => 'docx',
+          'file_extensions' => 'docx txt',
         ],
       ];
       // Create the field storage.

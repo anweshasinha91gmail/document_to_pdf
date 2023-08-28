@@ -1,6 +1,29 @@
 <?php
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 
+/**
+ * Implements hook_uninstall().
+ */
+function document_to_pdf_uninstall() {
+  // Delete the field and its storage.
+  $field_name = 'field_document_to_pdf'; // Replace 'field_name' with the actual field name.
+  // Get a list of content types.
+  $content_types = \Drupal::entityTypeManager()->getStorage('node_type')->loadMultiple();
+  foreach ($content_types as $content_type) {
+    // Load the field configuration for this content type.
+    $field_config = FieldConfig::loadByName('node', $content_type->id(), 'field_document_to_pdf');
+    if ($field_config) {
+      $field_config->delete();
+    }
+  }
+  // Load and delete the field storage.
+  $field_storage = FieldStorageConfig::loadByName('node', $field_name);
+  if ($field_storage) {
+    $field_storage->delete();
+  }
+}
 /**
  * @file
  * Primary module hooks for document_to_pdf module.
@@ -41,10 +64,13 @@ function perform_conversion_submit_handler($form, FormStateInterface $form_state
         case 'docx':
           //Extract the file data
           $data = \Drupal::service('document_to_pdf.conversionservices')->fetch_docx_data($file_path, $file_name_without_ext);
-          //Convert to pdf
-          \Drupal::service('document_to_pdf.conversionservices')->convert_to_pdf($data);
+        case 'txt':
+          //Extract the file data
+          $data = file_get_contents($file_path);
         break;
       }
+      //Convert to pdf
+      \Drupal::service('document_to_pdf.conversionservices')->convert_to_pdf($data);
     }
   }
 

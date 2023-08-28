@@ -257,20 +257,6 @@ class ConversionServices {
       return $goodHTML;
   }
 
-/**
- * Fetch the document data for pptx file
- */
-  public function fetch_pptx_data() {
-
-  }
-
-/**
- * Fetch the document data for xlx file
- */
-  public function fetch_xlx_data() {
-
-  }
-
   /**
    * Returns the hexcode of the color.
    */
